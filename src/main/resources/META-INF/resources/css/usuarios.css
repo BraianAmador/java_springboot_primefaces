@@ -1,0 +1,82 @@
+
+
+/* =========================================================
+   RELESYS - USUARIOS
+   Estilos de estructura y distribución.
+   Los componentes conservan el tema de PrimeFaces.
+   ========================================================= */
+
+/* Página */
+
+.usuarios {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+/* Encabezado del módulo */
+
+.usuarios__encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.usuarios__encabezado h2 {
+    margin: 0 0 6px;
+}
+
+.usuarios__encabezado p {
+    margin: 0;
+}
+
+/* Formulario */
+
+.usuarios__formulario {
+    width: 100%;
+}
+
+.usuarios__formulario td {
+    vertical-align: middle;
+}
+
+/* Columna de acciones */
+
+.usuarios__columna-acciones {
+    width: 120px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Separación entre botones de la columna Acciones */
+
+.usuarios__columna-acciones .ui-button {
+    margin: 0 5px !important;
+}
+
+/* Separación entre Editar y Eliminar */
+
+.usuarios__columna-acciones .ui-button {
+    margin: 0 3px;
+}
+
+/* Adaptación a pantallas pequeñas */
+
+@media (max-width: 600px) {
+    .usuarios {
+        padding: 12px;
+    }
+
+    .usuarios__encabezado {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+.usuarios__columna-acciones .ui-button + .ui-button {
+    margin-left: 10px !important;
+}

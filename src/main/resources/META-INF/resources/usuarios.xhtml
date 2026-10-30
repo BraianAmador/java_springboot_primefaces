@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets">
+
+<h:head>
+    <title>Usuarios | Relesys</title>
+    <h:outputStylesheet library="css" name="usuarios.css" />
+</h:head>
+
+<h:body>
+
+    <h:form id="formUsuarios">
+
+        <main class="usuarios">
+
+            <!-- Encabezado -->
+            <div class="usuarios__encabezado">
+                <div>
+                    <h2>Usuarios</h2>
+                    <p>Administración de usuarios del sistema.</p>
+                </div>
+
+                <p:commandButton
+                        value="Nuevo usuario"
+                        icon="pi pi-plus"
+                        styleClass="ui-button-primary"
+                        action="#{usuarioView.prepararNuevo}"
+                        process="@this"
+                        update=":formUsuarios:dialogoUsuarioContenido :formUsuarios:mensajes"
+                        oncomplete="PF('dialogoUsuario').show();" />
+            </div>
+
+            <!-- Mensajes -->
+            <p:messages
+                    id="mensajes"
+                    showDetail="true"
+                    closable="true" />
+
+            <!-- Tabla de usuarios -->
+            <p:dataTable
+                    id="tablaUsuarios"
+                    value="#{usuarioView.usuarios}"
+                    var="usuario"
+                    paginator="false"
+                    rows="1000"
+                    responsiveLayout="scroll"
+                    emptyMessage="No hay usuarios registrados.">
+
+                <p:column headerText="Teléfono">
+                    <h:outputText value="#{usuario.numero}" />
+                </p:column>
+
+                <p:column headerText="Interno">
+                    <h:outputText value="#{usuario.interno}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{usuario.nombre}" />
+                </p:column>
+
+                <p:column headerText="Apellido">
+                    <h:outputText value="#{usuario.apellido}" />
+                </p:column>
+
+                <p:column headerText="Empresa">
+                    <h:outputText value="#{usuario.empresaNombre}" />
+                </p:column>
+
+                <p:column headerText="Sector">
+                    <h:outputText value="#{usuario.sectorNombre}" />
+                </p:column>
+
+                <p:column headerText="Ubicación">
+                    <h:outputText value="#{usuario.ubicacionDireccion}" />
+                </p:column>
+
+                <!-- Acciones -->
+                <p:column
+                        headerText="Acciones"
+                        styleClass="usuarios__columna-acciones"
+                        style="width: 140px; text-align: center;">
+
+                    <p:commandButton
+                            icon="pi pi-pencil"
+                            title="Editar usuario"
+                            ariaLabel="Editar usuario"
+                            styleClass="ui-button-secondary"
+                            process="@this"
+                            action="#{usuarioView.editar(usuario)}"
+                            update=":formUsuarios:dialogoUsuarioContenido :formUsuarios:mensajes"
+                            oncomplete="PF('dialogoUsuario').show();" />
+
+                    <p:commandButton
+                            icon="pi pi-trash"
+                            title="Eliminar usuario"
+                            ariaLabel="Eliminar usuario"
+                            styleClass="ui-button-danger"
+                            process="@this"
+                            action="#{usuarioView.eliminar(usuario)}"
+                            update=":formUsuarios:tablaUsuarios :formUsuarios:mensajes">
+
+                        <p:confirm
+                                header="Confirmar eliminación"
+                                message="¿Querés eliminar este usuario?"
+                                icon="pi pi-exclamation-triangle" />
+
+                    </p:commandButton>
+
+                </p:column>
+
+            </p:dataTable>
+
+        </main>
+
+        <!--- aca va el formulario de usuario -->
+
+        <ui:include src="/fragments/crear-usuario.xhtml" />
+
+        <!-- Confirmación de eliminación -->
+        <p:confirmDialog
+                global="true"
+                showEffect="fade"
+                hideEffect="fade"
+                responsive="true"
+                width="350">
+
+            <p:commandButton
+                    value="Sí, eliminar"
+                    type="button"
+                    styleClass="ui-confirmdialog-yes ui-button-danger"
+                    icon="pi pi-check" />
+
+            <p:commandButton
+                    value="Cancelar"
+                    type="button"
+                    styleClass="ui-confirmdialog-no ui-button-secondary"
+                    icon="pi pi-times" />
+
+        </p:confirmDialog>
+
+    </h:form>
+
+</h:body>
+</html>
